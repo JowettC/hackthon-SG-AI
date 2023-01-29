@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <title>AI 4 Local</title>
+</head>
+
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <div class="section d-flex justify-content-center align-items-center">
+        <div class="container card m-2 mt-5 p-5">
+            <form action="form" method="post">
+                <h1>Thank you for your Feedback!! </h1>
+                <div class="logo">
+                    <img src="{{url_for('static', filename='img/AILocal.png')}}" class="logo_pic"/>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+    </section>
+    {% endblock %}
+</body>
+
+</html>

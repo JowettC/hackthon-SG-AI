@@ -26,8 +26,11 @@ def form():
         if error:
             print("form incomplete")
             return render_template('form.html', error="Please fill all the fields: " + error[:-2])
+        else:
+            print("form complete")
+            ingestData(name, aspect, feedback)
+            return render_template('thankyou.html')
 
-        return "success"
     else:
         return render_template('form.html')
 
