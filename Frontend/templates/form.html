@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <title>EnableBiz</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+         <!-- HERO -->
+     <section class="d-flex justify-content-center align-items-center banner justify-content-center">
+        <div class="container">
+            <div class="logo">
+                <img src="{{url_for('static', filename='img/AILocal.png')}}" class="logo_pic"/>
+            </div>
+             <div class="row">
+                 <div class="col profile" data-aos="fade-up"
+                 data-aos-duration="1000">
+                    <img src="{{url_for('static', filename='img/jw.jpg')}}" class="profile_pic"/>
+                    <br/>
+                    <br/>
+                    <div class="info"> Jowett</div>
+                    <div class="info"> Year 3 Information System</div>
+                    <div class="info"> SMU </div>
+                 </div>
+                 <div class="col profile" data-aos="fade-up"
+                 data-aos-duration="1500">
+                    <img src="{{url_for('static', filename='img/ys.jpg')}}" class="profile_pic"/>
+                    <br/>
+                    <br/>
+                    <div class="info"> Yee Sen</div>
+                    <div class="info"> Year 3 Information System</div>
+                    <div class="info"> SMU </div>
+                 </div>
+                 <div class="col profile" data-aos="fade-up"
+                 data-aos-duration="2000">
+                    <img src="{{url_for('static', filename='img/nx.jpg')}}" class="profile_pic"/>
+                    <br/>
+                    <br/>
+                    <div class="info"> Ning Xian</div>
+                    <div class="info"> Year 3 Information System</div>
+                    <div class="info"> SMU </div>
+                 </div>
+             </div>
+             <br/><br/>
+             <div class="custom_button mx-auto">Use Our App</div>
+        </div>
+</section>
+    {% endblock %}
+</body>
+</html>
