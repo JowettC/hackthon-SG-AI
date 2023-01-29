@@ -10,19 +10,28 @@
 
     {% block content %}
         <div class="section d-flex justify-content-center align-items-center">
-            <div class="container card m-5 p-5">
+            <div class="container card m-2 mt-5 p-5">
                 <form>
+                    <h2>We appreciate the time you're taking to share your feedback! ❤</h2>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <label for="nameInput">Name</label>
+                        <input type="text" class="form-control" id="nameInput" aria-describedby="optionalLabel" placeholder="John Doe">
+                        <small id="optionalLabel" class="form-text text-muted">Optional</small>
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <label for="exampleFormControlSelect1">What are you commenting about?</label>
+                        <select class="form-control" id="selectAspect">
+                          <option>Product</option>
+                          <option>Service</option>
+                        </select>
                       </div>
+                      <div class="form-group">
+                        <label for="feedbackInput">Feedback</label>
+                        <textarea class="form-control" id="feedbackInput" rows="3" aria-describedby="optionalLabel"></textarea>
+                        <small id="optionalLabel" class="form-text text-muted" >Optional</small>
+                    </div>
                       
-                      <button type="submit" class="btn btn-success">Submit</button>
+                      <button type="submit" class="btn btn-success">Help us to Improve Product</button>
                 </form>
             </div>
         </div>
