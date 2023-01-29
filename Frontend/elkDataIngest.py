@@ -3,6 +3,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 from elasticsearch_dsl import connections
 from nlpModel import classify
+import json
 import datetime
 def ingestData(name, aspect, feedback):
     elasticUsername  = 'elastic'
@@ -18,12 +19,13 @@ def ingestData(name, aspect, feedback):
     label = classify(feedback, aspect)
 
     data = {
-        "time_stamp": datetime.datetime.now(),
+        "time_stamp": str(datetime.datetime.now()),
         "name": name,
         "aspect": aspect,
         "feedback": feedback,
         "label": label
     }
-    print(data)
+    es.index(index='customer_review_data', document=json.dumps(data))
 
-    
+if __name__ == "__main__":
+    ingestData("jowett", "service", "The service was great")
