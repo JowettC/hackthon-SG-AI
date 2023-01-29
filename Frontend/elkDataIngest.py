@@ -2,7 +2,7 @@ import pandas as pd
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 from elasticsearch_dsl import connections
-# from nlpModel import classify
+from nlpModel import classify
 import json
 import datetime
 
@@ -19,7 +19,7 @@ def ingestData(name, aspect, feedback):
     if not name:
         name = "None"
     
-    # label = classify(feedback, aspect)
+    label = classify(feedback, aspect)
     label = 1
     if (label < 0):
         label = "negative"
