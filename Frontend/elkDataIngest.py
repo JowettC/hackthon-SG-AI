@@ -20,7 +20,7 @@ def ingestData(name, aspect, feedback):
         name = "None"
     
     label = classify(feedback, aspect)
-    label = 1
+    # label = 1
     if (label < 0):
         label = "negative"
     elif (label == 1):

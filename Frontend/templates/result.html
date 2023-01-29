@@ -14,7 +14,10 @@
     {% block content %}
     <div class="section d-flex justify-content-center align-items-center full-height">
         <div class="container card m-2 mt-5 p-5 text-center" data-aos="fade-up" data-aos-duration="3000">
-            <canvas id="myCanvas" width="800" height="450"></canvas>
+            <h1> Positive Word Count</h1>
+            <canvas id="positiveChart" width="800" height="450"></canvas>
+            <h1> Negative Word Count</h1>
+            <canvas id="negativeChart" width="800" height="450"></canvas>
 
 
         </div>
@@ -40,7 +43,9 @@
                 success: function (data) {
                     console.log("Successful")
                     console.log(data)
-                    processData(data)
+                    dataCount = processData(data)
+                    renderChart(dataCount[0],dataCount[1],"positiveChart")
+                    renderChart(dataCount[2],dataCount[3],"negativeChart")
                 },
                 // Error handling 
                 error: function (error) {
@@ -51,15 +56,15 @@
 
         ajaxCall();
 
-        function renderChart() {
-            new Chart(document.getElementById("myCanvas"), {
+        function renderChart(labels,data,id) {
+            new Chart(document.getElementById(id), {
                 type: 'bar',
                 data: {
-                    labels: ["word1", "word2:", "word3", "word4", "word5"],
+                    labels: labels,
                     datasets: [{
                         label: "Population (millions)",
                         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                        data: ["1", "2", "3", "4,", "5"]
+                        data: data,
                     }]
                 },
                 options: {
@@ -76,12 +81,13 @@
 
         function processData(data){
             res={
-                posWordCount:[],
-                negWordCount:[]
+                
             }
             var uniPosWords = []
+            var uniPosWordsCount = []
             var allPosWords = []
             var uniNegWords = []
+            var uniNegWordsCount = []
             var allNegWords = []
             
             data.forEach(function(review){
@@ -94,7 +100,7 @@
                         str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "").toLowerCase();
                         // Add additional code here, such as:
                         uniPosWords.indexOf(str_array[i]) === -1 ? uniPosWords.push(str_array[i]) : console.log("exist")
-                        allPosWords.indexOf(str_array[i]) === -1 ? allPosWords.push(str_array[i]) : console.log("exist")
+                        allPosWords.push(str_array[i])
                     }
                 }
                 if(review["label"] === "negative"){
@@ -105,12 +111,28 @@
                         str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "").toLowerCase();
                         // Add additional code here, such as:
                         uniNegWords.indexOf(str_array[i]) === -1 ? uniNegWords.push(str_array[i]) : console.log("exist")
-                        allNegWords.indexOf(str_array[i]) === -1 ? allNegWords.push(str_array[i]) : console.log("exist")
+                        allNegWords.push(str_array[i])
                     }
                 }
             });
-            console.log(uniPosWords)
-            console.log(uniNegWords)
+            // populate positive words
+            var uniPosWordsCount = Array(uniPosWords.length).fill(0)
+            var uniNegWordsCount = Array(uniNegWords.length).fill(0)
+            allPosWords.forEach(function(word){
+                index = uniPosWords.indexOf(word)
+                uniPosWordsCount[index] +=1
+            });
+            allNegWords.forEach(function(word){
+                // console.log(word)
+                index = uniNegWords.indexOf(word)
+                uniNegWordsCount[index] +=1
+            });
+            res = [uniPosWords,uniPosWordsCount,uniNegWords,uniNegWordsCount]
+            // console.log(uniPosWordsCount)
+            // console.log(uniPosWords)
+            // console.log(uniNegWordsCount)
+            // console.log(uniNegWords)
+            // console.log(allNegWords)
             return res
         }
     </script>
