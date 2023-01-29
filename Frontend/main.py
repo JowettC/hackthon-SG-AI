@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
-from nlpModel import classify
+# from nlpModel import classify
+from elkDataIngest import ingestData
 app = Flask(__name__)
 
 
