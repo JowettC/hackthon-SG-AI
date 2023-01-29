@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from nlpModel import classify
 app = Flask(__name__)
 
@@ -7,14 +7,32 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/form')
+@app.route('/form', methods=('GET', 'POST'))
 def form():
     print("Going Form")
-    return render_template('form.html')
+    if request.method == 'POST':
+        print("POST")
+
+        error = ""
+        name = request.form['name']
+        aspect = request.form['aspect']
+        feedback = request.form['feedback']
+        print("from stuff -- " + name, aspect, feedback)
+        if not aspect:
+            error += "Aspect, "
+        if not feedback:
+            error += "Feedback, "
+        if error:
+            print("form incomplete")
+            return render_template('form.html', error="Please fill all the fields: " + error[:-2])
+
+        return "success"
+    else:
+        return render_template('form.html')
 
 @app.route('/test')
 def test():
     return "test"
+
 if __name__ == "__main__":
-    # print(classify("I love this product", "product"))
     app.run(host="0.0.0.0", port=5100, debug=True)
