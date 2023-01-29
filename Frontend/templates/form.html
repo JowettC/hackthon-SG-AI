@@ -11,8 +11,9 @@
     {% extends 'base.html' %}
 
     {% block content %}
-    <div class="section d-flex justify-content-center align-items-center">
-        <div class="container card m-2 mt-5 p-5">
+    <div class="section d-flex justify-content-center align-items-center full-height">
+        <div class="container card m-2 mt-5 p-5 " data-aos="fade-up"
+        data-aos-duration="1000">
             <form action="form" method="post">
                 <h2>We appreciate the time you're taking to share your feedback! ❤</h2>
                 <div class="form-group">
@@ -35,7 +36,7 @@
                     <small id="optionalLabel" class="form-text text-muted">Write to your heart content</small>
                 </div>
 
-                <button type="submit" class="btn btn-success">Help us to Improve Product</button>
+                <button type="submit" class="btn btn-success">Help us to Improve 😍</button>
                 <small id="optionalLabel" class="form-text text-danger">{{error}}</small>
             </form>
         </div>

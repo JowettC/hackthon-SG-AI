@@ -11,16 +11,19 @@
     {% extends 'base.html' %}
 
     {% block content %}
-    <div class="section d-flex justify-content-center align-items-center">
-        <div class="container card m-2 mt-5 p-5">
-            <form action="form" method="post">
-                <h1>Thank you for your Feedback!! </h1>
-                <div class="logo">
-                    <img src="{{url_for('static', filename='img/AILocal.png')}}" class="logo_pic"/>
-                </div>
-            </form>
+    <div class="section d-flex justify-content-center align-items-center full-height">
+        <div class="container card m-2 mt-5 p-5 text-center" data-aos="fade-up"
+        data-aos-duration="3000" >
+
+            <h1 class="text-center">Thank you for your Feedback!! </h1>
+            <div class="logo">
+                <img src="{{url_for('static', filename='img/AILocal_dark.png')}}" class="logo_pic" />
+            </div>
+            <a href="/form"><input class="custom_button mx-auto btn btn-black" onclick="form();" value="Submit Another Feedback 🥳"
+                    type="submit" /></a>
+
         </div>
-        
+
     </div>
 
     </section>

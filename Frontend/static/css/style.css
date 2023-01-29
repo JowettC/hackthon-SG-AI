@@ -32,8 +32,6 @@
     text-align:center;
 }
 .custom_button{
-    border: solid 1px white;
-    color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -41,11 +39,30 @@
     /* margin: 4px 2px; */
     cursor: pointer;
     border-radius: 12px;
-    max-width:200px;
+    /* max-width:200px; */
     font-weight:bolder
 }
-.custom_button:hover{
+.btn-black{
+    border: solid 1px #494F55;
+    color: #494F55;
+}
+.btn-black:hover{
+    background-color: #494F55;
+    color: white;
+}
+.btn-white:hover{
     background-color: white;
-    color: black;
+    color: #494F55;
 
+}
+.btn-white{
+    border: solid 1px white;
+    color: white;
+}
+.full-height{
+    height:100vh;
+}
+
+body{
+    background-image: linear-gradient(to right, #DECBA4, #3E5151);
 }
