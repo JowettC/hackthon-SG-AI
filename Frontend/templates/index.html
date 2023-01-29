@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-    <title>EnableBiz</title>
+    <title>AI 4 Local</title>
 </head>
 <body>
     {% extends 'base.html' %}
@@ -11,7 +11,7 @@
     {% block content %}
          <!-- HERO -->
      <section class="d-flex justify-content-center align-items-center banner justify-content-center">
-        <div class="container">
+        <div class="container" style="text-align:center">
             <div class="logo">
                 <img src="{{url_for('static', filename='img/AILocal.png')}}" class="logo_pic"/>
             </div>
@@ -45,7 +45,7 @@
                  </div>
              </div>
              <br/><br/>
-             <div class="custom_button mx-auto">Use Our App</div>
+             <a href="/form"><input class="custom_button mx-auto btn" onclick="form();" value="Use Our App" type="submit"/></a>
         </div>
 </section>
     {% endblock %}

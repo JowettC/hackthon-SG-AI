@@ -8,7 +8,7 @@
     background-repeat: no-repeat;
     background-color: grey;
     background-blend-mode: multiply;
-    text-align:"center"
+    text-align:center;
 }
 
 
@@ -42,4 +42,10 @@
     cursor: pointer;
     border-radius: 12px;
     max-width:200px;
+    font-weight:bolder
+}
+.custom_button:hover{
+    background-color: white;
+    color: black;
+
 }
