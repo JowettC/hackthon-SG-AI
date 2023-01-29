@@ -17,9 +17,13 @@ def ingestData(name, aspect, feedback):
         name = "None"
     
     label = classify(feedback, aspect)
-
+    if (label == 0):
+        label = "negative"
+    elif (label == 1):
+        label = "positive"
+    # timestamp = datetime.datetime.now()
     data = {
-        "time_stamp": str(datetime.datetime.now()),
+        "@timestamp": str(datetime.date.today()),
         "name": name,
         "aspect": aspect,
         "feedback": feedback,
@@ -28,4 +32,4 @@ def ingestData(name, aspect, feedback):
     es.index(index='customer_review_data', document=json.dumps(data))
 
 if __name__ == "__main__":
-    ingestData("jowett", "service", "The service was great")
+    ingestData("may", "service", "The service was great")
