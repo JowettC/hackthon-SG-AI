@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 # from nlpModel import classify
 from elkDataIngest import ingestData
+from firestore import db
+import json
 app = Flask(__name__)
 
 
@@ -37,6 +39,17 @@ def form():
 @app.route('/test')
 def test():
     return "test"
+
+@app.route('/getdata')
+def getdata():
+    coll_ref = db.collection('customer_review_data')
+    # Using coll_ref.stream() is more efficient than coll_ref.get()
+    docs = coll_ref.stream()
+    res = [] 
+    for doc in docs:
+        res.append(doc.to_dict())
+        # print(f'{doc.id} => {doc.to_dict()}')
+    return res
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5100, debug=True)
