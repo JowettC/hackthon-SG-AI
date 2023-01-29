@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <title>AI 4 Local</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+</head>
+
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <div class="section d-flex justify-content-center align-items-center full-height">
+        <div class="container card m-2 mt-5 p-5 text-center" data-aos="fade-up" data-aos-duration="3000">
+            <canvas id="myCanvas" width="800" height="450"></canvas>
+
+
+        </div>
+
+    </div>
+
+    </section>
+    <!-- <script type="text/javascript" {{ url_for('static', filename='app.js')}}></script> -->
+    <!-- <script {{ url_for('static', filename='index.js')}}></script> -->
+    <script type="module" src="static/index.js"></script>
+    <script type="text/javascript">
+        var data = {}
+        // data =  JSON.parse(data);
+        // console.log(data);
+        function ajaxCall() {
+            $.ajax({
+                // Our sample url to make request 
+                url: '/getdata',
+                // Type of Request
+                type: "GET",
+                // Function to call when to
+                // request is ok 
+                success: function (data) {
+                    console.log("Successful")
+                    console.log(data)
+                    processData(data)
+                },
+                // Error handling 
+                error: function (error) {
+                    console.log(`Error ${error}`);
+                }
+            });
+        }
+
+        ajaxCall();
+
+        function renderChart() {
+            new Chart(document.getElementById("myCanvas"), {
+                type: 'bar',
+                data: {
+                    labels: ["word1", "word2:", "word3", "word4", "word5"],
+                    datasets: [{
+                        label: "Population (millions)",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                        data: ["1", "2", "3", "4,", "5"]
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Total Word Count'
+                    }
+                }
+            });
+        }
+
+        function processData(data){
+            res={
+                posWordCount:[],
+                negWordCount:[]
+            }
+            var uniPosWords = []
+            var allPosWords = []
+            var uniNegWords = []
+            var allNegWords = []
+            
+            data.forEach(function(review){
+                console.log(review["feedback"])
+                if(review["label"] === "positive"){
+                    // array.indexOf(newItem) === -1 ? array.push(newItem)
+                    var str_array = review["feedback"].split(' ');
+                    for(var i = 0; i < str_array.length; i++) {
+                        // Trim the excess whitespace.
+                        str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "").toLowerCase();
+                        // Add additional code here, such as:
+                        uniPosWords.indexOf(str_array[i]) === -1 ? uniPosWords.push(str_array[i]) : console.log("exist")
+                        allPosWords.indexOf(str_array[i]) === -1 ? allPosWords.push(str_array[i]) : console.log("exist")
+                    }
+                }
+                if(review["label"] === "negative"){
+                    // array.indexOf(newItem) === -1 ? array.push(newItem)
+                    var str_array = review["feedback"].split(' ');
+                    for(var i = 0; i < str_array.length; i++) {
+                        // Trim the excess whitespace.
+                        str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "").toLowerCase();
+                        // Add additional code here, such as:
+                        uniNegWords.indexOf(str_array[i]) === -1 ? uniNegWords.push(str_array[i]) : console.log("exist")
+                        allNegWords.indexOf(str_array[i]) === -1 ? allNegWords.push(str_array[i]) : console.log("exist")
+                    }
+                }
+            });
+            console.log(uniPosWords)
+            console.log(uniNegWords)
+            return res
+        }
+    </script>
+    {% endblock %}
+
+</body>
+
+</html>

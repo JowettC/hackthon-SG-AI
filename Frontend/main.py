@@ -51,5 +51,9 @@ def getdata():
         # print(f'{doc.id} => {doc.to_dict()}')
     return res
 
+@app.route('/results')
+def results():
+    return render_template('result.html')
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5100, debug=True)
