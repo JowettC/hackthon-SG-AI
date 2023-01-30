@@ -15,8 +15,30 @@
     <div class="section d-flex justify-content-center align-items-center full-height">
         <div class="container card m-2 mt-5 p-5 text-center" data-aos="fade-up" data-aos-duration="3000">
             <h1> Positive Word Count</h1>
+            <!-- <div class="form-group">
+                <label for="selectPosCount">Select Number of Words</label>
+                <select class="form-control" id="selectPosCount" name="aspect">
+                    <option value="5">Top 5</option>
+                    <option value="10">Top 10</option>
+                    <option value="15">Top 15</option>
+                    <option value="20">Top 20</option>
+                    <option value="30">Top 30</option>
+                    <option value="50">Top 50</option>
+                </select>
+            </div> -->
             <canvas id="positiveChart" width="800" height="450"></canvas>
             <h1> Negative Word Count</h1>
+            <!-- <div class="form-group">
+                <label for="selectNegCount">Select Number of Words</label>
+                <select class="form-control" id="selectNegCount" name="aspect">
+                    <option value="5">Top 5</option>
+                    <option value="10">Top 10</option>
+                    <option value="15">Top 15</option>
+                    <option value="20">Top 20</option>
+                    <option value="30">Top 30</option>
+                    <option value="50">Top 50</option>
+                </select>
+            </div> -->
             <canvas id="negativeChart" width="800" height="450"></canvas>
 
 
@@ -29,6 +51,20 @@
     <!-- <script {{ url_for('static', filename='index.js')}}></script> -->
     <script type="module" src="static/index.js"></script>
     <script type="text/javascript">
+        var uniPosWords = []
+        var uniPosWordsCount = []
+        var allPosWords = []
+        var uniNegWords = []
+        var uniNegWordsCount = []
+        var allNegWords = []
+        // $("#selectNegCount").change(function () {
+        //     var value = $("#selectNegCount").val();
+        //     console.log(dataCount[3].slice(value))
+        //     renderChart(dataCount[2].slice(value), dataCount[3].slice(value), "selectNegCount")
+        // });
+        // $("#selectPosCount").change(function () {
+        //     alert("The text has been changed.");
+        // });
         var data = {}
         // data =  JSON.parse(data);
         // console.log(data);
@@ -44,8 +80,8 @@
                     console.log("Successful")
                     console.log(data)
                     dataCount = processData(data)
-                    renderChart(dataCount[0],dataCount[1],"positiveChart")
-                    renderChart(dataCount[2],dataCount[3],"negativeChart")
+                    renderChart(dataCount[0], dataCount[1], "positiveChart")
+                    renderChart(dataCount[2], dataCount[3], "negativeChart")
                 },
                 // Error handling 
                 error: function (error) {
@@ -56,13 +92,13 @@
 
         ajaxCall();
 
-        function renderChart(labels,data,id) {
+        function renderChart(labels, data, id) {
             new Chart(document.getElementById(id), {
                 type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: "Population (millions)",
+                        label: "Count",
                         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
                         data: data,
                     }]
@@ -79,38 +115,35 @@
             });
         }
 
-        function processData(data){
-            res={
-                
+        function processData(data) {
+            res = {
+
             }
-            var uniPosWords = []
-            var uniPosWordsCount = []
-            var allPosWords = []
-            var uniNegWords = []
-            var uniNegWordsCount = []
-            var allNegWords = []
-            
-            data.forEach(function(review){
+
+
+            data.forEach(function (review) {
                 console.log(review["feedback"])
-                if(review["label"] === "positive"){
+                if (review["label"] === "positive") {
                     // array.indexOf(newItem) === -1 ? array.push(newItem)
                     var str_array = review["feedback"].split(' ');
-                    for(var i = 0; i < str_array.length; i++) {
+                    for (var i = 0; i < str_array.length; i++) {
                         // Trim the excess whitespace.
                         str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "").toLowerCase();
                         // Add additional code here, such as:
-                        uniPosWords.indexOf(str_array[i]) === -1 ? uniPosWords.push(str_array[i]) : console.log("exist")
+                        uniPosWords.indexOf(str_array[i]) === -1 ? uniPosWords.push(str_array[i]) : console.log(
+                            "exist")
                         allPosWords.push(str_array[i])
                     }
                 }
-                if(review["label"] === "negative"){
+                if (review["label"] === "negative") {
                     // array.indexOf(newItem) === -1 ? array.push(newItem)
                     var str_array = review["feedback"].split(' ');
-                    for(var i = 0; i < str_array.length; i++) {
+                    for (var i = 0; i < str_array.length; i++) {
                         // Trim the excess whitespace.
                         str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "").toLowerCase();
                         // Add additional code here, such as:
-                        uniNegWords.indexOf(str_array[i]) === -1 ? uniNegWords.push(str_array[i]) : console.log("exist")
+                        uniNegWords.indexOf(str_array[i]) === -1 ? uniNegWords.push(str_array[i]) : console.log(
+                            "exist")
                         allNegWords.push(str_array[i])
                     }
                 }
@@ -118,16 +151,16 @@
             // populate positive words
             var uniPosWordsCount = Array(uniPosWords.length).fill(0)
             var uniNegWordsCount = Array(uniNegWords.length).fill(0)
-            allPosWords.forEach(function(word){
+            allPosWords.forEach(function (word) {
                 index = uniPosWords.indexOf(word)
-                uniPosWordsCount[index] +=1
+                uniPosWordsCount[index] += 1
             });
-            allNegWords.forEach(function(word){
+            allNegWords.forEach(function (word) {
                 // console.log(word)
                 index = uniNegWords.indexOf(word)
-                uniNegWordsCount[index] +=1
+                uniNegWordsCount[index] += 1
             });
-            res = [uniPosWords,uniPosWordsCount,uniNegWords,uniNegWordsCount]
+            res = [uniPosWords, uniPosWordsCount, uniNegWords, uniNegWordsCount]
             // console.log(uniPosWordsCount)
             // console.log(uniPosWords)
             // console.log(uniNegWordsCount)
