@@ -8,7 +8,7 @@ import datetime
 
 from firestore import db
 
-def ingestData(name, aspect, feedback):
+def ingestData(name, aspect, feedback, result):
     elasticUsername  = 'elastic'
     elasticPassword  = 'changeme'
     ## Setup Connection to Elasticsearch
@@ -33,7 +33,8 @@ def ingestData(name, aspect, feedback):
         "name": name,
         "aspect": aspect,
         "feedback": feedback,
-        "label": label
+        "label": label,
+        "result": result
     }
 
     es.index(index='customer_review_data', document=json.dumps(data))

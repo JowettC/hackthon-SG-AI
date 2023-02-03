@@ -3,6 +3,9 @@ from flask import Flask, render_template, request
 from elkDataIngest import ingestData
 from firestore import db
 import json
+from yolo_demo.detect_function import run
+import os
+
 app = Flask(__name__)
 
 
@@ -17,6 +20,7 @@ def form():
         print("POST")
 
         error = ""
+        image = request.files['image']
         name = request.form['name']
         aspect = request.form['aspect']
         feedback = request.form['feedback']
@@ -25,12 +29,20 @@ def form():
             error += "Aspect, "
         if not feedback:
             error += "Feedback, "
+        if not image:
+            error += "Image, "
         if error:
             print("form incomplete")
             return render_template('form.html', error="Please fill all the fields: " + error[:-2])
         else:
+            image.save(image.filename)
+            # print("image saved")
+            # print("image name: " + image.filename)
+            result = run(detect_object="laptop", source=image.filename)
+            print(result)
             print("form complete")
-            ingestData(name, aspect, feedback)
+            ingestData(name, aspect, feedback, result)
+            os.remove(image.filename)
             return render_template('thankyou.html')
 
     else:

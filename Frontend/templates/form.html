@@ -14,7 +14,7 @@
     <div class="section d-flex justify-content-center align-items-center full-height">
         <div class="container card m-2 mt-5 p-5 " data-aos="fade-up"
         data-aos-duration="1000">
-            <form action="form" method="post">
+            <form action="form" method="post" enctype="multipart/form-data">
                 <h2>We appreciate the time you're taking to share your feedback! ❤</h2>
                 <div class="form-group">
                     <label for="nameInput">Name</label>
@@ -29,6 +29,11 @@
                         <option>Service</option>
                     </select>
                 </div>
+                <div class="form-group">
+
+                    <input type="file" name="image" class="form-control-file" name="picture">
+                
+                  </div>
                 <div class="form-group">
                     <label for="feedbackInput">Feedback</label>
                     <textarea name="feedback" class="form-control" id="feedbackInput" rows="3"
